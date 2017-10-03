@@ -2,15 +2,12 @@ $(document).ready(function(){
 
 	var tweet = grid(16,32,$(".gridContainer"));
 
-
-
-
 });
 
 
 
 
-function grid(rows, columns,element){
+function grid(rows, columns, element){
 	var w = Math.floor(element.innerWidth()/columns)-2;
 	var h = Math.floor(element.innerHeight()/rows)-2;
 	console.log("height," , element.height());
