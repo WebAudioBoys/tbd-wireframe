@@ -19,15 +19,19 @@ body {
     padding-top: 15px;
     padding-right: 15px;
     padding-left: 15px;
-    width: auto;
     height:500px;
+}
 
+.gridlabels{
+    float: left;
+    justify-content: left;
+    height:inherit;
+    width:3%;
 }
 
 .grid{
     height: inherit;
-    overflow: scroll;
-    position: inline-block;
+    width:95%;  
 }
 
 .row {
@@ -80,5 +84,9 @@ body {
     -moz-user-select: none;     /* Firefox all */
     -ms-user-select: none;      /* IE 10+ */
     user-select: none;          /* Likely future */  
+
+}
+
+rowlabel{
 
 }

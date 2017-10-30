@@ -1,6 +1,8 @@
+var noteNames = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+
 $(document).ready(function(){
 
-	var tweet = grid(128,32,$(".gridContainer"));
+	var tweet = grid(16,32,$(".gridContainer"));
 
 	// var bump =  grid(10,32,$("#bump .gridContainer"));
 	// var drums =  grid(16,32,$("#drums .gridContainer"));
@@ -36,11 +38,22 @@ $('.row .step').mousedown(function(){
 
 
 function grid(rows, columns, element){
-	var w = Math.floor(element.innerWidth()/columns);
-	var h = Math.floor(element.innerHeight()/32)-2;
+	var w = Math.floor(100/columns);
+	var h = Math.floor(100/rows);
 	console.log("height," , element.height());
 	console.log(element.width());
+	var labels = $("<div class='gridlabels'></div>")
+	//This creates the column of labels
+	for(var i = 0; i < rows; i++){
+		thisNote = noteNames[i%noteNames.length];
+		thisOctave = Math.floor(i/noteNames.length);
+		var rowLabel = $("<div class='rowlabel'>"+thisNote+thisOctave+"</div>").appendTo(labels);		
+	}
+	element.append(labels);
+
+	//This creates the grid
 	var gr = $("<div class='grid'></div>")
+
 	for(var i = 0; i < rows; i++){
 		var row = $("<div class='row'></div>").appendTo(gr);
 		for(var k = 0; k < columns; k++){
@@ -49,10 +62,21 @@ function grid(rows, columns, element){
 	}
 	element.append(gr);
 
-	$(".step").css({
-		"width": w+"px",
-		"height": h+"px"
+	$(".row").css({
+		"height": h+"%"
 	});
+
+	$(".step").css({
+		"width": w+"%"
+	});
+
+
+
+	$(".rowlabel").css({
+	"height": h+"%"
+	});
+
+
 	return gr;
 }
 
