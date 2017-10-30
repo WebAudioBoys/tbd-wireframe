@@ -24,6 +24,12 @@ body {
 
 }
 
+.grid{
+    height: inherit;
+    overflow: scroll;
+    position: inline-block;
+}
+
 .row {
     display: -ms-flexbox;
     display: flex;
