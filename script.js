@@ -1,22 +1,42 @@
 var noteNames = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
-
+var row, column;
+var theGrid = [];
+var thisRow;
+var rows = 16;
+var columns = 32; 	
+for (i = 0; i < rows; i++){
+ 		thisRow = [];
+		for (j = 0; j < columns; j++){
+			thisRow.push(-1);
+		}
+		theGrid.push(thisRow);
+	}
 $(document).ready(function(){
-
 	var tweet = grid(16,32,$(".gridContainer"));
+	var mouseIsClicked = false;
+	var stepEntered = false;
+	$('#plus').mousedown(function(){
+		$('.newInstrument').toggleClass("clicked");
+	});
 
-	// var bump =  grid(10,32,$("#bump .gridContainer"));
-	// var drums =  grid(16,32,$("#drums .gridContainer"));
-var mouseIsClicked = false;
-var stepEntered = false;
-$('.row .step').mousedown(function(){
+	$('.row .step').mousedown(function(){
 		mouseIsClicked = true;
 		$(this).toggleClass("clicked");
+			column = $(this).index();
+			row = $(this).parent().index();
+			theGrid[row][column] =  theGrid[row][column] * -1;
 	}).mouseup(function(){
 		mouseIsClicked = false;
 	// }).mousemove(function(){
 	}).mouseenter(function(){
 		if(mouseIsClicked){
 			$(this).toggleClass("clicked");
+			column = $(this).index();
+			row = $(this).parent().index();
+			theGrid[row][column] *= -1;
+			console.log('row:  ', row);
+			console.log('column:  ', column);
+			// console.log(theGrid);
 		}
 		// if($(this).mouseleave()){
 		// 	$(this).toggleClass("clicked");
@@ -29,10 +49,29 @@ $('.row .step').mousedown(function(){
 
 		// });
 	}).mouseleave(function(){
+		//this.hasClass("clicked") then toggle???
+		//
 
 	});
 
+
+	$(".newInsButton").click(function(){
+
+		var instName = $("#insName").val();
+		var rowCount = $("#rowCount").val();
+		console.log("instName:  ", instName);
+		console.log("rowCount:   ",rowCount);
+
+	});
+
+
 });
+
+
+
+
+
+
 
 
 
@@ -76,7 +115,21 @@ function grid(rows, columns, element){
 	"height": h+"%"
 	});
 
+// // Create the polarity grid
+
+	for (i = 0; i < rows; i++){
+ 		thisRow = [];
+		for (j = 0; j < columns; j++){
+			thisRow.push(-1);
+		}
+		theGrid.push(thisRow);
+	}
+	
 
 	return gr;
 }
+
+
+
+
 
