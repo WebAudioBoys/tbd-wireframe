@@ -24,8 +24,8 @@ io.on('connection', function(socket){
 	  socket.emit('connection');
 
 socket.on('step', function(data){
-  console.log(data)
-  io.emit('stepreturn')
+  console.log(data);
+  io.emit('stepreturn', data);
 
 
 });

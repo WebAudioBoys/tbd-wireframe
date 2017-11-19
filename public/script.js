@@ -30,18 +30,20 @@ $(document).ready(function(){
 		// track mouse state
 		mouseIsClicked = true;
 			
-			socket.emit('step',{
-				row: row,
-				column: column
-			})
+
 		
 		// toggle style	
-		$(this).toggleClass("clicked");
+		// $(this).toggleClass("clicked");
 		
 		// toggle corresponding polarity grid cell
 		column = $(this).index();
 		row = $(this).parent().index();
 		theGrid[row][column] =  theGrid[row][column] * -1;
+			
+		socket.emit('step',{
+		row: row,
+		column: column
+		});
 	
 	// exit on unclick
 	}).mouseup(function(){
@@ -51,17 +53,18 @@ $(document).ready(function(){
 	}).mouseenter(function(){
 		if(mouseIsClicked){
 			// toggle style
-			$(this).toggleClass("clicked");
+			// $(this).toggleClass("clicked");
 			
-			socket.emit('step',{
-				row: row,
-				column: column
-			})
+
 			// toggle corresponding polarity grid cell
 			column = $(this).index();
 			row = $(this).parent().index();
 			theGrid[row][column] *= -1;
 			
+			socket.emit('step',{
+			row: row,
+			column: column
+			});
 
 		}
 	});
@@ -81,8 +84,9 @@ $(document).ready(function(){
 
 
 
-	socket.on('stepreturn',function(){
+	socket.on('stepreturn',function(data){
 		console.log('Somebody clicked');
+		$(".row:eq("+data.row+") .step:eq("+data.column+")").toggleClass("clicked");
 	})
 	
 
