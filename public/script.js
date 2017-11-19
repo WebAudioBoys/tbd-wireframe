@@ -29,6 +29,11 @@ $(document).ready(function(){
 	$('.row .step').mousedown(function(){
 		// track mouse state
 		mouseIsClicked = true;
+			
+			socket.emit('step',{
+				row: row,
+				column: column
+			})
 		
 		// toggle style	
 		$(this).toggleClass("clicked");
@@ -48,11 +53,16 @@ $(document).ready(function(){
 			// toggle style
 			$(this).toggleClass("clicked");
 			
+			socket.emit('step',{
+				row: row,
+				column: column
+			})
 			// toggle corresponding polarity grid cell
 			column = $(this).index();
 			row = $(this).parent().index();
 			theGrid[row][column] *= -1;
 			
+
 		}
 	});
 
@@ -70,7 +80,18 @@ $(document).ready(function(){
 	});
 
 
+
+	socket.on('stepreturn',function(){
+		console.log('Somebody clicked');
+	})
+	
+
+
+
+
 });
+
+
 
 // grid creation function for init and new tabs
 function grid(rows, columns, element){

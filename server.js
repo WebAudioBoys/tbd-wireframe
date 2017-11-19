@@ -23,6 +23,13 @@ io.on('connection', function(socket){
   console.log('A user connected');
 	  socket.emit('connection');
 
+socket.on('step', function(data){
+  console.log(data)
+  io.emit('stepreturn')
+
+
+});
+
   // timeout warning console check
   setTimeout(function(){
     socket.send('Sent a message 4seconds after connection!');
@@ -39,5 +46,5 @@ io.on('connection', function(socket){
 
 // local server connection
 http.listen(port, function(){
-  console.log('listening on *:3323');
+  console.log('listening on *:', port);
 });
