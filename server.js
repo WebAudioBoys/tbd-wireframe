@@ -2,6 +2,8 @@ var express = require('express');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var normalizeSocket = require("normalize-socket");
+var port = normalizeSocket(process.env.PORT || "8081");
 
 // TODO: Keeping track of grids:
 // Make a nested loop to construct arrays to keep track of polarity every time the grid constructor gets a call
@@ -36,6 +38,6 @@ io.on('connection', function(socket){
 });
 
 // local server connection
-http.listen(3323, '0.0.0.0', function(){
+http.listen(port, function(){
   console.log('listening on *:3323');
 });
