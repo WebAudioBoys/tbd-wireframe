@@ -70,9 +70,9 @@ $(document).ready(function(){
 	});
 
 	// update style on '+' button
-	$('#plus').mousedown(function(){
-		$('.newInstrument').toggleClass("clicked");
-	});
+	// $('#plus').mousedown(function(){
+	// 	// $('.newInstrument').toggleClass("clicked");
+	// });
 
 	// create new instance from user menu specs
 	$(".newInsButton").click(function(){
@@ -80,6 +80,25 @@ $(document).ready(function(){
 		var rowCount = $("#rowCount").val();
 		console.log("instName:  ", instName);
 		console.log("rowCount:   ",rowCount);
+		
+		var newTab = '<a class="nav-link" data-toggle="collapse" href="#'+instName+'" role="tab">'+instName+'</a>'
+		var listElement = $('.tab-content ul').append('<li class="nav-item">'+newTab+'</li>')
+
+		//Creating The New Grid
+		var newPane = $('<div class="tab-pane" id="'+instName+'" role="tabpanel"></div>');
+		
+		x = $('<div class="gridHolder"></div>').appendTo(newPane);
+		
+		grid(rowCount,32,x);
+		
+		// console.log("nj:", newJoint);	
+	
+		
+		newPane.appendTo($('.tab-panes'));
+		// var thisContainer = newPane.append('<div class="gridContainer"></div>');
+		// var newElement = $('#'+instName+' .gridContainer'); 
+		// var newJoint = grid(rowCount,32,$(newElement));
+
 	});
 
 
@@ -98,12 +117,14 @@ $(document).ready(function(){
 
 
 // grid creation function for init and new tabs
+
+
 function grid(rows, columns, element){
 	// initial values
 	var w = Math.floor(100/columns);
 	var h = Math.floor(100/rows);
 	var labels = $("<div class='gridlabels'></div>")
-	
+	console.log(element);
 	// console checks for grid dimensions
 	console.log("height: " , element.height());
 	console.log("width: ", element.width());
