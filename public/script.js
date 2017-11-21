@@ -20,8 +20,8 @@ $(document).ready(function(){
 
 
 	//The tab toggler
-	$('ul.tabs li a').click(function(){
-		
+	//$('ul.tabs li a').click(function(){
+	$(document).on("click","ul.tabs li a",function(){	
 		var tab_id = $(this).attr('data-tab');
 		console.log(tab_id);
 		$('ul.tabs li a').removeClass('current');
@@ -29,7 +29,7 @@ $(document).ready(function(){
 
 		$(this).addClass('current');
 		$("#"+tab_id).addClass('current');
-	})
+	});
 
 
 
