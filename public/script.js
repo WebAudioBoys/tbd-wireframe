@@ -14,13 +14,12 @@ var columns = 32;
 // page interaction
 $(document).ready(function(){
 	// initial grid and mouse states
-	var tweet = grid(16,32,$(".gridContainer"));
+	var tweet = grid(16,32,$('.gridContainer'));
 	var mouseIsClicked = false;
 	var stepEntered = false;
 
 
 	//The tab toggler
-	//$('ul.tabs li a').click(function(){
 	$(document).on("click","ul.tabs li a",function(){	
 		var tab_id = $(this).attr('data-tab');
 		console.log(tab_id);
@@ -78,20 +77,28 @@ $(document).ready(function(){
 
 	// create new instance from user menu specs
 	$(document).on("click",".newInsButton",function(){
+		//Get user information
 		var instName = $("#insName").val();
 		var rowCount = $("#rowCount").val();
-		// console.log("instName:  ", instName);
-		// console.log("rowCount:   ",rowCount);
 
+		//Make new instrument the current instrument
+		$('ul.tabs li a').removeClass('current');
+		$('.tab-content').removeClass('current');
 		
-		var newTab = '<li><a class="tab-link" data-tab="'+instName+'">'+instName+'</a></li>';
-		var listElement = $('.tabs').append(newTab);
+		//Create Tab
+		var newTab = '<li><a class="tab-link current" data-tab="'+instName+'">'+instName+'</a></li>';
+		$('.tabs').append(newTab);
 
 		//Creating The New Grid
-		var newPane = $('<div class="tab-content" id="'+instName+'"></div>');
+		var newPane = $('<div class="tab-content current" id="'+instName+'"></div>');
 		
-		holder = $('<div class="gridHolder"></div>').appendTo(newPane);
-		grid(rowCount,32,holder);
+		 gc = $('<div class="gridContainer"></div>').appendTo(newPane)
+		
+
+		
+		var newGrid = grid(rowCount,32,$('.tab-content.current .gridContainer'));
+		
+		$(/*'#'+instName+*/' .gridContainer').append(newGrid);
 		newPane.appendTo($('#tab-spot'));
 
 
@@ -104,11 +111,6 @@ $(document).ready(function(){
 		console.log('Somebody clicked');
 		$(".row:eq("+data.row+") .step:eq("+data.column+")").toggleClass("clicked");
 	})
-	
-
-
-
-
 });
 
 
@@ -118,6 +120,8 @@ $(document).ready(function(){
 
 function grid(rows, columns, element){
 	// initial values
+
+	// var element = $("#"+id+" .gridContainer")
 	var w = Math.floor(100/columns);
 	var h = Math.floor(100/rows);
 	var labels = $("<div class='gridlabels'></div>")
@@ -146,13 +150,13 @@ function grid(rows, columns, element){
 	element.append(gr);
 
 	// size elements based pct for flexible resizing
-	$(".row").css({
+	$("#"+id+" .row").css({
 		"height": h+"%"
 	});
-	$(".step").css({
+	$("#"+id+" .step").css({
 		"width": w+"%"
 	});
-	$(".rowlabel").css({
+	$("#"+id+" .rowlabel").css({
 	"height": h+"%"
 	});
 
