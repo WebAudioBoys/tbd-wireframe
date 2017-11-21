@@ -150,13 +150,13 @@ function grid(rows, columns, element){
 	element.append(gr);
 
 	// size elements based pct for flexible resizing
-	$("#"+id+" .row").css({
+	$(" .row").css({
 		"height": h+"%"
 	});
-	$("#"+id+" .step").css({
+	$(" .step").css({
 		"width": w+"%"
 	});
-	$("#"+id+" .rowlabel").css({
+	$(" .rowlabel").css({
 	"height": h+"%"
 	});
 
