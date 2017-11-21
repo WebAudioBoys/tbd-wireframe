@@ -9,14 +9,7 @@ var thisRow;
 var rows = 16;
 var columns = 32; 	
 
-// create polarity grid
-for (i = 0; i < rows; i++){
-	thisRow = [];
-	for (j = 0; j < columns; j++){
-		thisRow.push(-1);
-	}	
-	theGrid.push(thisRow);
-}
+
 
 // page interaction
 $(document).ready(function(){
@@ -24,6 +17,23 @@ $(document).ready(function(){
 	var tweet = grid(16,32,$(".gridContainer"));
 	var mouseIsClicked = false;
 	var stepEntered = false;
+
+
+	//The tab toggler
+	$('ul.tabs li a').click(function(){
+		
+		var tab_id = $(this).attr('data-tab');
+		console.log(tab_id);
+		$('ul.tabs li a').removeClass('current');
+		$('.tab-content').removeClass('current');
+
+		$(this).addClass('current');
+		$("#"+tab_id).addClass('current');
+	})
+
+
+
+
 
 	// cell click
 	$('.row .step').mousedown(function(){
@@ -52,9 +62,6 @@ $(document).ready(function(){
 	// subsequent dragged cells
 	}).mouseenter(function(){
 		if(mouseIsClicked){
-			// toggle style
-			// $(this).toggleClass("clicked");
-			
 
 			// toggle corresponding polarity grid cell
 			column = $(this).index();
@@ -69,36 +76,26 @@ $(document).ready(function(){
 		}
 	});
 
-	// update style on '+' button
-	// $('#plus').mousedown(function(){
-	// 	// $('.newInstrument').toggleClass("clicked");
-	// });
-
 	// create new instance from user menu specs
-	$(".newInsButton").click(function(){
+	$(document).on("click",".newInsButton",function(){
 		var instName = $("#insName").val();
 		var rowCount = $("#rowCount").val();
-		console.log("instName:  ", instName);
-		console.log("rowCount:   ",rowCount);
+		// console.log("instName:  ", instName);
+		// console.log("rowCount:   ",rowCount);
+
 		
-		var newTab = '<a class="nav-link" data-toggle="collapse" href="#'+instName+'" role="tab">'+instName+'</a>'
-		var listElement = $('.tab-content ul').append('<li class="nav-item">'+newTab+'</li>')
+		var newTab = '<li><a class="tab-link" data-tab="'+instName+'">'+instName+'</a></li>';
+		var listElement = $('.tabs').append(newTab);
 
 		//Creating The New Grid
-		var newPane = $('<div class="tab-pane" id="'+instName+'" role="tabpanel"></div>');
+		var newPane = $('<div class="tab-content" id="'+instName+'"></div>');
 		
-		x = $('<div class="gridHolder"></div>').appendTo(newPane);
-		
-		grid(rowCount,32,x);
-		
-		// console.log("nj:", newJoint);	
-	
-		
-		newPane.appendTo($('.tab-panes'));
-		// var thisContainer = newPane.append('<div class="gridContainer"></div>');
-		// var newElement = $('#'+instName+' .gridContainer'); 
-		// var newJoint = grid(rowCount,32,$(newElement));
+		holder = $('<div class="gridHolder"></div>').appendTo(newPane);
+		grid(rowCount,32,holder);
+		newPane.appendTo($('#tab-spot'));
 
+
+		
 	});
 
 
@@ -171,3 +168,5 @@ function grid(rows, columns, element){
 	// return completed grid
 	return gr;
 }
+
+
