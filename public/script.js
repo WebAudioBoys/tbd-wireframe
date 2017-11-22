@@ -157,7 +157,7 @@ function grid(rows, columns, element){
 	var gr = $("<div class='grid'></div>")
 
 	for(var i = 0; i < rows; i++){
-		var row = $("<div class='row' style='height: "+h+"% width=inherit'></div>").appendTo(gr);
+		var row = $("<div class='row'></div>").appendTo(gr);
 		for(var k = 0; k < columns; k++){
 			row.append("<div class='step' ></div>");
 		}
@@ -170,7 +170,10 @@ function grid(rows, columns, element){
 	$(".row").css({
 		"height": h+"%"
 	});
-	$(" .rowlabel").css({
+	$(".step").css({
+		"width": w+"%"
+	});
+	$("#"+parent_id+" .rowlabel").css({
 	"height": h+"%"
 	});
 
