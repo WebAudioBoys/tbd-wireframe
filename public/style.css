@@ -25,19 +25,15 @@ body {
     width:90%;
 }
 
-.gridHolder{
+.current.gridContainer{
     margin-right: auto;
     margin-left: auto;
     padding-top: 15px;
     padding-right: 15px;
     padding-left: 15px;
-    height:90%;
+    height:700px;
     width:90%;
 }
-
-/*.grid.hidden{
-    visibility: hidden;
-}*/
 
 .gridlabels{
     float: left;

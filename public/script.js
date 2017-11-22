@@ -7,7 +7,12 @@ var row, column;
 var theGrid = [];
 var thisRow;
 var rows = 16;
-var columns = 32; 	
+var columns = 32; 
+
+clock = new Tone.Clock(function(){
+	console.log('time')
+}, 2); //this is frequency whereas p5 was the duration of the tickp	
+clock.start();
 
 
 
@@ -92,16 +97,16 @@ $(document).ready(function(){
 		//Creating The New Grid
 		var newPane = $('<div class="tab-content current" id="'+instName+'"></div>');
 		
-		 gc = $('<div class="gridContainer"></div>').appendTo(newPane)
-		
+		var gc = $('<div class="gridContainer"></div>').appendTo(newPane);
+		var thisElement = $('.tab-content.current .gridContainer');
+		console.log(thisElement);
 
+		var newGrid = grid(rowCount,32,gc);
 		
-		var newGrid = grid(rowCount,32,$('.tab-content.current .gridContainer'));
-		
-		$(/*'#'+instName+*/' .gridContainer').append(newGrid);
+		console.log(newGrid);
+
+		// gc.append(newGrid);
 		newPane.appendTo($('#tab-spot'));
-
-
 		
 	});
 
@@ -118,14 +123,24 @@ $(document).ready(function(){
 // grid creation function for init and new tabs
 
 
+
+
+
+
+
+
+
+
+
 function grid(rows, columns, element){
 	// initial values
-
+	var parent_id = element.parent().attr('id');
+	console.log(parent_id);
 	// var element = $("#"+id+" .gridContainer")
 	var w = Math.floor(100/columns);
 	var h = Math.floor(100/rows);
 	var labels = $("<div class='gridlabels'></div>")
-	console.log(element);
+	console.log('the element',element);
 	// console checks for grid dimensions
 	console.log("height: " , element.height());
 	console.log("width: ", element.width());
@@ -142,19 +157,18 @@ function grid(rows, columns, element){
 	var gr = $("<div class='grid'></div>")
 
 	for(var i = 0; i < rows; i++){
-		var row = $("<div class='row'></div>").appendTo(gr);
+		var row = $("<div class='row' style='height: "+h+"% width=inherit'></div>").appendTo(gr);
 		for(var k = 0; k < columns; k++){
-			row.append("<div class='step'></div>");
+			row.append("<div class='step' ></div>");
 		}
 	}
+	
 	element.append(gr);
+	console.log(gr);
 
 	// size elements based pct for flexible resizing
-	$(" .row").css({
+	$(".row").css({
 		"height": h+"%"
-	});
-	$(" .step").css({
-		"width": w+"%"
 	});
 	$(" .rowlabel").css({
 	"height": h+"%"
@@ -172,5 +186,6 @@ function grid(rows, columns, element){
 	// return completed grid
 	return gr;
 }
+
 
 
